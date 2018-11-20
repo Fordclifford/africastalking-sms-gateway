@@ -1,0 +1,48 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.city'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+        maven {
+    url  "http://dl.bintray.com/africastalking/java"
+  }
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+     compile 'com.africastalking:core:3.4.0'
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-web-services')
+	runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	runtimeOnly('mysql:mysql-connector-java')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+task runApp(type: JavaExec, dependsOn: classes){
+    description = "Simple App "
+    main = "com.citycorp.CityApplication"
+    classpath = sourceSets.main.runtimeClasspath
+}
