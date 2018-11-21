@@ -22,9 +22,9 @@ public class SMSRequest {
 
     
     @Size(max = 40)
-    private String phone;
-
+    private String[] phone;
     
+       
     @Size(max = 100)
     private String message;
 
@@ -32,9 +32,11 @@ public class SMSRequest {
         return id;
     }
 
-    public String getPhone() {
+    public String[] getPhone() {
         return phone;
     }
+
+   
 
     public String getMessage() {
         return message;
@@ -44,9 +46,11 @@ public class SMSRequest {
         this.id = id;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String[] phone) {
         this.phone = phone;
     }
+
+    
 
     public void setMessage(String message) {
         this.message = message;

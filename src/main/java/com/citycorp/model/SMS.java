@@ -5,6 +5,7 @@
  */
 package com.citycorp.model;
 
+import java.util.Arrays;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,11 +36,11 @@ public class SMS {
         
     }
 
-    public SMS(String phone, String message) {
+ 
+    public SMS(String phone ,String message) {
         this.phone = phone;
         this.message = message;
-    }
-    
+    } 
     
     
 

@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
-group = 'com.city'
+group = 'com.citycorp'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -33,7 +33,8 @@ configurations {
 
 dependencies {
      compile 'com.africastalking:core:3.4.0'
-	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+     compile('org.springframework.boot:spring-boot-starter-mail')
+        implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-web-services')
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
@@ -42,7 +43,7 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 task runApp(type: JavaExec, dependsOn: classes){
-    description = "Simple App "
+    description = "Run the App "
     main = "com.citycorp.CityApplication"
     classpath = sourceSets.main.runtimeClasspath
 }
