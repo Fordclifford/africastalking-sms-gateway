@@ -25,14 +25,13 @@ import javax.validation.constraints.Size;
 
     
        
-    @Size(max = 40)
+   
     private String email;
 
-    
-    @Size(max = 100)
+   
     private String message;
     
-     @Size(max = 100)
+    
     private String attachment;
      
    private String fromEmail;

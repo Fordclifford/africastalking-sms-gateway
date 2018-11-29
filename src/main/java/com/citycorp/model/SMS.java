@@ -25,11 +25,11 @@ public class SMS {
     private Long id;
 
     
-    @Size(max = 40)
+   
     private String phone;
 
     
-    @Size(max = 100)
+   
     private String message;
     
     public SMS() {

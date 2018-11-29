@@ -49,8 +49,7 @@ public class SMSController  {
     public EmailRepository emailRepository;
  
     
-    private static final int HTTP_PORT = 8081;
-    private static final int RPC_PORT = 35897;
+    private static final int HTTP_PORT = 9090;
     private static final String USERNAME = "city";
     private static final String API_KEY = "e22b2d9008e86e4c42d0c340ecbe4c17c75f0fbfc7d91ca9d715e30f4d11eea7";
     
@@ -62,7 +61,6 @@ public class SMSController  {
     private static void setupAfricastalking() throws IOException {
          InetAddress host = Inet4Address.getLocalHost();
         log("\n");
-        log(String.format("SDK Server: %s:%d", host.getHostAddress(), RPC_PORT));
         log(String.format("HTTP Server: %s:%d", host.getHostAddress(), HTTP_PORT));
         log("\n");
 
