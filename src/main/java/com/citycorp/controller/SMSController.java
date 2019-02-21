@@ -5,19 +5,23 @@
  */
 package com.citycorp.controller;
 import com.africastalking.*;
+import com.africastalking.sms.Recipient;
 import com.citycorp.model.EmailService;
 import com.citycorp.model.SMS;
-
+import com.citycorp.model.SMSCredentials;
 import com.citycorp.payload.ApiResponse;
 import com.citycorp.payload.EmailRequest;
 import com.citycorp.payload.SMSRequest;
 import com.citycorp.repository.EmailRepository;
+import com.citycorp.repository.SMSCredentialsRespository;
 import com.citycorp.repository.SMSRepository;
 import java.io.File;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -45,13 +49,19 @@ public class SMSController  {
      @Autowired
     public JavaMailSender emailSender;
      
+     @Autowired
+     private static SMSCredentialsRespository smsCred;
+     
+     //static SMSCredentials cred = smsCred.findById(1);
+      
+     
           @Autowired
-    public EmailRepository emailRepository;
+    private EmailRepository emailRepository;
  
     
     private static final int HTTP_PORT = 9090;
-    private static final String USERNAME = "city";
-    private static final String API_KEY = "e22b2d9008e86e4c42d0c340ecbe4c17c75f0fbfc7d91ca9d715e30f4d11eea7";
+   // private final static  String USERNAME = cred.getUsername();
+    //private final static String API_KEY = cred.getApiKey();
     
      private static void log(String message) {
         System.out.println(message);
@@ -63,9 +73,14 @@ public class SMSController  {
         log("\n");
         log(String.format("HTTP Server: %s:%d", host.getHostAddress(), HTTP_PORT));
         log("\n");
+        
+        log("\n");
+        log("API Key: "+ smsCred.getUserName());
+        log("\n");
 
 
-        AfricasTalking.initialize(USERNAME, API_KEY);
+
+        AfricasTalking.initialize("krufed", "dca4182bf9bde4c0b0b9952259089c3cb10f2334f0099ac61c1730180f55f190");
         AfricasTalking.setLogger(new Logger(){
             @Override
             public void log(String message, Object... args) {
@@ -76,19 +91,24 @@ public class SMSController  {
     
     
     @PostMapping("/sms/send")
-    public ApiResponse sendSMS( @Valid @RequestBody SMSRequest smsRequest) throws IOException{
+    public List<SMSCredentials> sendSMS( @Valid @RequestBody SMSRequest smsRequest) throws IOException{
+    	 log("\n");
+       //  log("API Key: "+ cred.getUsername());
+         log("\n");
         setupAfricastalking();
         String p= Arrays.toString(smsRequest.getPhone());
         SMS text = new SMS( p,smsRequest.getMessage());
          SmsService sms = AfricasTalking.getService(AfricasTalking.SERVICE_SMS);
+         
+         
       
-        	sms.send(smsRequest.getMessage(),null, smsRequest.getPhone(),false);
+        	 sms.send(smsRequest.getMessage(),null, smsRequest.getPhone(),false);
               
                 
         smsRepository.save(text);     
         
 
-  return new ApiResponse(true, "Message sent Successfully");
+  return smsCred.getApiKeyandUsername();
         
     }
     
@@ -107,6 +127,7 @@ public class SMSController  {
         
         EmailService email= new EmailService(emailRequest.getMessage(),emailRequest.getAttachment(), emailRequest.getFromEmail(), emailRequest.getToEmail(), emailRequest.getSubject());
         emailRepository.save(email);
+      
   return new ApiResponse(true, "Email sent Successfully");
         
     }

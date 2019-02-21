@@ -27,16 +27,29 @@ public class RepaymentSchedule {
     
     @Column(name = "principal_amount")
     private Double principalAmount;
+    
+     @Column(name = "interest_amount")
+    private Double interestAmount;
 
-    public RepaymentSchedule(Long id, Long loanId, Double principalAmount) {
-        this.id = id;
+    public Double getInterestAmount() {
+        return interestAmount;
+    }
+
+    public void setInterestAMount(Double interestAmount) {
+        this.interestAmount = interestAmount;
+    }
+
+    public RepaymentSchedule(Long loanId, Double principalAmount, Double interestAmount) {
         this.loanId = loanId;
         this.principalAmount = principalAmount;
+        this.interestAmount = interestAmount;
     }
 
     public RepaymentSchedule() {
     }
-    
+
+
+  
     
 
     public Long getId() {

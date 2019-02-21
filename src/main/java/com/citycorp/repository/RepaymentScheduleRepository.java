@@ -21,7 +21,7 @@ public interface RepaymentScheduleRepository extends JpaRepository<RepaymentSche
     
     
        @Query(
-			  value = "SELECT p.loan_id,(p.principal_amount+p.interest_amount) AS amount FROM m_loan_repayment_schedule p where p.loan_id=:loanId GROUP BY p.loan_id",
+			  value = "SELECT  * FROM `m_loan_repayment_schedule` where `loan_id`=4 GROUP BY `loan_id",
 			  nativeQuery = true)
 	            Optional<RepaymentSchedule> findByLoanId (@Param("loanId") Long loanId);
 }

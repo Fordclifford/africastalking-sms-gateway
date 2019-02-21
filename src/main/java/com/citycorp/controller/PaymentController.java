@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author user
  */
+
 @RestController
 @RequestMapping("/api")
 public class PaymentController {
@@ -46,15 +47,18 @@ public class PaymentController {
     
     
      @PostMapping("/receipt/check")
-    public ApiResponse chekReceiptNumber(@Valid @RequestBody PaymentRequest paymentRequest){ 
+ public ApiResponse chekReceiptNumber(@Valid @RequestBody PaymentRequest paymentRequest){ 
+     System.out.println(paymentRequest);
         
  if (pRepository.existsByReceiptNumber(paymentRequest.getReceiptNumber())){
+     System.out.println(paymentRequest);
       return new ApiResponse(false, "Receipt Number Exists");
  }else if (!pRepository.existsByReceiptNumber(paymentRequest.getReceiptNumber())){
-     
+     System.out.println(paymentRequest);
   return new ApiResponse(true, "Receipt Number Available");
         
     }
+ System.out.println(paymentRequest);
   return new ApiResponse(true, "Checkeed Successfully");
    
 }
